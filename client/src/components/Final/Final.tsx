@@ -14,7 +14,7 @@ const Final = ({players}: IProps) => {
 			rowGap: '15px',
 			justifyContent: 'space-around',
 		}}>
-			{players.map((_, id) => <UserTile key={id} name='Hulk' surname='Hogan'/>)}
+			{players.map((_, id) => <UserTile key={id} name='Iron man'/>)}
 		</Box>
 	);
 };

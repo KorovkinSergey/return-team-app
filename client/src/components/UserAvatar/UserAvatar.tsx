@@ -14,7 +14,7 @@ const UserAvatar: FC<IProps> = ({ name }) => {
 			backgroundColor: 'secondary.light',
 			fontSize: '3rem',
 			lineHeight: '100%',
-		}}
+		}} src='/assets/ironman-ava.webp'
 		>
 			<span style={{ height: '100%' }}>{getFirstLetter(name)}</span>
 		</Avatar>

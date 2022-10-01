@@ -16,7 +16,7 @@ const Header = () => {
 						color='secondary'
 		>
 			<Button
-				onClick={logout}
+				onClick={ logout }
 				variant='contained'
 				color='primary'
 				sx={{
