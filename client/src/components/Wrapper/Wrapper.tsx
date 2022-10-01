@@ -6,12 +6,11 @@ interface IProps {
 	top?: boolean
 }
 
-
 const Wrapper: FC<IProps> = ({ children, top }) => {
 
 	const stylesDefault = {
 		display: 'flex',
-		width: '100%',
+		width: 'auto',
 		position: 'relative',
 		flexDirection: 'column',
 		justifyContent: 'center',

@@ -11,10 +11,23 @@ interface IProps {
 const UserAchievements: FC<IProps> = ({ label, count = 0, countColor = 'common.white' }) => {
 	return (
 		<Box sx={{ marginTop: 1 }}>
-			<Typography sx={{ fontSize: 24 }} color='primary.contrastText'>
-				{label}: <Typography sx={{
+			<Typography sx={{
+				fontSize: 24,
+				textAlign: 'center',
+				width: 120,
+				height: 120,
+				borderRadius: '50%',
+				border: '3px solid #aa0505',
+				padding: '20px',
+				boxSizing: 'border-box'
+			}} color='primary.light'>
+				<span style={{
+					display: 'block',
+					fontSize: 14,
+				}}>{label}:</span>
+				<Typography sx={{
 				fontSize: 32,
-				display: 'inline',
+				display: 'inline-block',
 			}} color={countColor} component='span'>{count}</Typography>
 			</Typography>
 		</Box>

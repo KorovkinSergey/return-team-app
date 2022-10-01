@@ -20,7 +20,8 @@ const AuthPage = () => {
 				bgcolor: 'background.paper',
 				width: '600px',
 				display: 'flex',
-				flex: '1 1 auto'
+				flex: '1 1 auto',
+				maxHeight: '600px'
 			}}>
 				{tab === 0 && <LoginForm />}
 				{tab === 1 && <RegisterForm setTab={setTab} />}
