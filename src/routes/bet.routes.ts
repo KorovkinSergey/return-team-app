@@ -7,14 +7,14 @@ const { check, validationResult } = require('express-validator')
 
 const router = Router()
 
-// получить список ставок
+// получить текущую ставку
 router.get('/', auth, async (req: any, res: any) => {
 	try {
 		const bet = await Bet.findOne({ isOpen: true })
 
 		if (!bet) return res.status(404).json({ message: 'Ставка не найдена' })
 
-		return res.status(200).json({ bet })
+		return res.status(200).json(bet)
 	} catch (e) {
 		console.log('e', e)
 		res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
