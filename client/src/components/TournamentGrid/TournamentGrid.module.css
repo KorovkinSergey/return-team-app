@@ -1,0 +1,25 @@
+.content {
+	height: calc(100vh - 190px);
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+.content::-webkit-scrollbar {
+	width: 4px;
+}
+
+.content::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+	background: rgba(35, 28, 0, 0.5);
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+	background: #b97d10;
+}
+
+.group + .group {
+	margin-top: 50px;
+}
