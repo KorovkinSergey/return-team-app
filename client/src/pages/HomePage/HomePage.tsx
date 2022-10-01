@@ -2,7 +2,8 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import {Button} from '@mui/material'
 import {useAuthContext} from '../../context/AuthContext'
-import User from "../../components/User/User";
+import {User} from "../../components/User";
+import {TournamentGrid} from "../../components/TournamentGrid";
 
 const HomePage = () => {
 	const { logout } = useAuthContext()
@@ -23,9 +24,7 @@ const HomePage = () => {
 					right: 10,
 				}}>Выход</Button>
 			<User />
-			<Box>
-				test
-			</Box>
+			<TournamentGrid/>
 		</Box>
 
 	)
