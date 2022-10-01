@@ -14,7 +14,7 @@ const User = () => {
 	return (
 		<Box
 			sx={{
-				maxWidth: '25%',
+				maxWidth: '400px',
 				height: '100%',
 				backgroundColor: 'success.main',
 			}}

@@ -8,7 +8,13 @@ const Header = () => {
 	const { logout } = useAuthContext()
 
 	return (
-		<AppBar sx={{padding: '15px 0 35px', backgroundColor: 'success.main', position: 'relative'}}>
+		<AppBar sx={{
+			padding: '15px 0 35px',
+			backgroundColor: 'success.main',
+			position: 'relative',
+		}}
+						color='secondary'
+		>
 			<Button
 				onClick={logout}
 				variant='contained'
@@ -22,11 +28,11 @@ const Header = () => {
 			>
 				Выход
 			</Button>
-			<Typography variant="h4" component="h2" align='center'>Победа в серии BO3</Typography>
+			<Typography variant='h4' component='h2' align='center'>Победа в серии BO3</Typography>
 
-			<Box sx={{display: 'flex', justifyContent: 'space-evenly', gap: '20px', marginTop: '20px'}}>
-				<BetField name='Name 1'/>
-				<BetField name='Name 2'/>
+			<Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: '20px', marginTop: '20px' }}>
+				<BetField ratio={1.1} name='Name 1' />
+				<BetField ratio={2} name='Name 2' />
 			</Box>
 		</AppBar>
 	)
