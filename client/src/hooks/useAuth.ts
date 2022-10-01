@@ -13,12 +13,13 @@ export interface IUseAuth {
 interface IData {
 	token: string,
 	user: {
+		avatar: string,
 		id: string,
 		name: string,
-		achievements: {
-			wordsLearned: number,
-			wordsOnRepeat: number
-		}
+		surname: string,
+		coins: number,
+		bets: [],
+		role: 'USER' | 'ADMIN'
 	}
 }
 

@@ -11,26 +11,26 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const theme = createTheme({
 	palette: {
 		primary: {
-			light: '#757ce8',
-			main: '#3f50b5',
-			dark: '#002884',
-			contrastText: '#ffffff',
+			light: '#aa0505',
+			main: '#6a0c0b',
+			dark: '#4b0908',
+			contrastText: '#fbca03',
 		},
 		success: {
-			light: '#757ce8',
-			main: '#3b8132',
-			dark: '#002884',
-			contrastText: '#ffffff',
+			light: '#aa0505',
+			main: '#6a0c0b',
+			dark: '#b97d10',
+			contrastText: '#fbca03',
 		},
 		secondary: {
-			light: '#ff7961',
-			main: '#f44336',
-			dark: '#ba000d',
-			contrastText: '#000000',
+			light: '#fbca03',
+			main: '#e39a1a',
+			dark: '#b97d10',
+			contrastText: '#aa0505',
 		},
 		common: {
-			black: '#84e094',
-			white: '#ff7961',
+			black: '#fbca03',
+			white: '#6a0c0b',
 		},
 	},
 })
