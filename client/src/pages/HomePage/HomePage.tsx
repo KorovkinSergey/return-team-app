@@ -8,25 +8,29 @@ import {TournamentGrid} from "../../components/TournamentGrid";
 const HomePage = () => {
 	const { logout } = useAuthContext()
 	return (
-		<Box sx={{
-			display: 'flex',
-			width: '100%',
-			height: '100%',
-		}}>
+		<Box
+			sx={{
+				display: 'flex',
+				width: '100%',
+				height: '100%',
+			}}
+		>
 			<Button
 				onClick={logout}
 				variant='contained'
 				color='primary'
 				sx={{
 					position: 'absolute',
-					backgroundColor: 'secondary.main',
+					backgroundColor: 'primary.dark',
 					top: 10,
 					right: 10,
-				}}>Выход</Button>
+				}}
+			>
+				Выход
+			</Button>
 			<User />
 			<TournamentGrid/>
 		</Box>
-
 	)
 }
 
