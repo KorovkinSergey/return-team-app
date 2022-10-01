@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import { UsersGroup } from '../UsersGroup'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -7,8 +7,18 @@ import { Header } from '../Header'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './TournamentGrid.module.css'
+import { useGroupList } from '../../hooks/api/useGroupList'
 
 const TournamentGrid = () => {
+	const { getGroupList } = useGroupList()
+	const [groupList, setGroupList] = useState([])
+
+	useEffect(() => {
+		getGroupList().then(setGroupList)
+	}, [])
+
+	console.log('groupList', groupList)
+
 	return (
 		<Box
 			sx={{

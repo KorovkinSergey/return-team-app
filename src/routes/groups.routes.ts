@@ -20,6 +20,7 @@ router.get('/', auth, async (req: any, res: any) => {
 		res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
 	}
 })
+
 // получить группу по id
 router.get('/:id', auth, async (req: any, res: any) => {
 	try {
@@ -34,42 +35,59 @@ router.get('/:id', auth, async (req: any, res: any) => {
 })
 
 // добавить новую группу
-router.post('/', [...dictionaryValidation], async (req: any, res: any) => {
-	try {
-		const errors = validationResult(req)
-		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array(), message: 'Не корректные данные' })
+router.post(
+	'/',
+	[
+		auth,
+		check('members.*.id', 'Нет поля').exists(),
+		check('members.*.name', 'Нет поля').exists(),
+		check('members.*.surname', 'Нет поля').exists(),
+	],
+	async (req: any, res: any) => {
+		try {
+			const errors = validationResult(req)
+			if (!errors.isEmpty()) {
+				return res.status(400).json({ errors: errors.array(), message: 'Не корректные данные' })
+			}
+			const { members } = req.body
+
+			if (members.length !== 4) return res.status(404).json({ message: 'Количество участников не подходит' })
+
+			const groups = await Group.find()
+
+			const emptyArray = (number: number) => {
+				const candidates = new Array(number)
+				return candidates.fill(1).map(() => ({
+					firstCandidate: '',
+					secondCandidate: '',
+					win: '',
+					score: '',
+				}))
+			}
+			const group = new Group({
+				group: groups.length + 1,
+				members,
+				semiFinal: emptyArray(4),
+				quarterfinal: emptyArray(2),
+			})
+
+			await group.save()
+
+			res.status(201).json({ message: 'Группа создана' })
+		} catch (e) {
+			console.log('e', e)
+			res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
 		}
-		const { members } = req.body
-		const groups = await Group.find()
-
-		const group = new Group({
-			group: groups.length + 1,
-			members,
-			semiFinal: [],
-			quarterfinal: [],
-		})
-
-		await group.save()
-
-		res.status(201).json({ message: 'Группа создана' })
-	} catch (e) {
-		console.log('e', e)
-		res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
 	}
-})
+)
 // удалить группу
-router.delete('/:id', [...dictionaryValidation], async (req: any, res: any) => {
+router.delete('/:id', [auth], async (req: any, res: any) => {
 	try {
-		const errors = validationResult(req)
-		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array(), message: 'Не корректные данные' })
-		}
 		const { id } = req.params
 
 		await Group.deleteOne({ _id: id })
 
-		res.status(201).json({ message: 'Пользователь удален' })
+		res.status(201).json({ message: 'Группа удалена' })
 	} catch (e) {
 		console.log('e', e)
 		res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
@@ -77,16 +95,16 @@ router.delete('/:id', [...dictionaryValidation], async (req: any, res: any) => {
 })
 
 // Редактировать группу
-router.post('/:id', [...dictionaryValidation], async (req: any, res: any) => {
+router.post('/:id', [auth], async (req: any, res: any) => {
 	try {
 		Group.findById(req.params.id, async (err: any, group: any) => {
 			if (!group) return res.status(404).json({ message: 'Группа не найдена' })
 
-			if (req.body.group.quarterfinal) {
-				group.quarterfinal = req.body.group.quarterfinal
+			if (req.body.quarterfinal) {
+				group.quarterfinal = req.body.quarterfinal
 			}
-			if (req.body.group.semiFinal) {
-				group.quarterfinal = req.body.group.quarterfinal
+			if (req.body.semiFinal) {
+				group.quarterfinal = req.body.quarterfinal
 			}
 
 			group.save((error: any, result: any) => {

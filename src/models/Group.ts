@@ -11,18 +11,18 @@ const schema = new Schema({
 	],
 	quarterfinal: [
 		{
-			firstTeam: { type: String, default: '', required: true },
-			secondTeam: { type: String, default: '', required: true },
-			win: { type: String, default: '', required: true },
-			score: { type: String, default: '', required: true },
+			firstCandidate: { type: String, default: '' },
+			secondCandidate: { type: String, default: '' },
+			win: { type: String, default: '' },
+			score: { type: String, default: '' },
 		},
 	],
 	semiFinal: [
 		{
-			firstTeam: { type: String, default: '', required: true },
-			secondTeam: { type: String, default: '', required: true },
-			win: { type: String, default: '', required: true },
-			score: { type: String, default: '', required: true },
+			firstCandidate: { type: String, default: '' },
+			secondCandidate: { type: String, default: '' },
+			win: { type: String, default: '' },
+			score: { type: String, default: '' },
 		},
 	],
 })
