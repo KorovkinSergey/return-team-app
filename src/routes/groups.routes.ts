@@ -65,8 +65,8 @@ router.post(
 			const group = new Group({
 				group: groups.length + 1,
 				members,
-				semiFinal: emptyArray(4),
 				quarterfinal: emptyArray(2),
+				semiFinal: emptyArray(1),
 			})
 
 			await group.save()

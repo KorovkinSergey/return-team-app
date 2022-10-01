@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppBar, Button, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import { useAuthContext } from '../../context/AuthContext'
 import BetField from '../BetField/BetField'
+import { Bet, useBet } from '../../hooks/api/useBet'
+import { Loading } from '../Loading'
 
 const Header = () => {
 	const { logout } = useAuthContext()
+	const { getBet, loading } = useBet()
+
+	const [bet, setBet] = useState<Bet | null>(null)
+
+	useEffect(() => {
+		getBet().then(setBet)
+	}, [getBet])
+	if (loading) return <Loading />
 
 	return (
-		<AppBar sx={{
-			padding: '15px 0 35px',
-			backgroundColor: 'success.main',
-			position: 'relative',
-		}}
-						color='secondary'
+		<AppBar
+			sx={{
+				padding: '15px 0 35px',
+				backgroundColor: 'success.main',
+				position: 'relative',
+			}}
+			color='secondary'
 		>
 			<Button
 				onClick={logout}
@@ -28,12 +39,26 @@ const Header = () => {
 			>
 				Выход
 			</Button>
-			<Typography variant='h4' component='h2' align='center'>Победа в серии BO3</Typography>
+			{bet === null && (
+				<>
+					<Typography variant='h4' component='h2' align='center'>
+						Ставка закрыта
+					</Typography>
+				</>
+			)}
 
-			<Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: '20px', marginTop: '20px' }}>
-				<BetField ratio={1.1} name='Name 1' />
-				<BetField ratio={2} name='Name 2' />
-			</Box>
+			{bet && (
+				<>
+					<Typography variant='h4' component='h2' align='center'>
+						Победа в серии BO3
+					</Typography>
+
+					<Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: '20px', marginTop: '20px' }}>
+						<BetField ratio={bet.firstTeamRatio} name={bet.firstTeam} />
+						<BetField ratio={bet.secondTeamRatio} name={bet.secondTeam} />
+					</Box>
+				</>
+			)}
 		</AppBar>
 	)
 }
