@@ -11,20 +11,22 @@ const TournamentLines = ({boxHeight}: IProps) => {
 				width: '100%',
 				height: boxHeight,
 				display: 'flex',
-				padding: '18px 0',
+				padding: '25.5px 0',
 			}}>
 				<Box sx={{
 					height: '100%',
 					width: '50%',
-					borderTop: '1px solid black',
-					borderRight: '1px solid black',
-					borderBottom: '1px solid black'
+					borderTop: '3px solid',
+					borderRight: '3px solid',
+					borderBottom: '3px solid',
+					borderColor: 'primary.main',
+					borderLeftColor: 'transparent'
 				}}>
 				</Box>
 				<hr style={{
 					border: 'none',
-					height: '1px',
-					backgroundColor: 'black',
+					height: '3px',
+					backgroundColor: '#aa0505',
 					margin: 0,
 					width: '50%',
 					position: 'relative',

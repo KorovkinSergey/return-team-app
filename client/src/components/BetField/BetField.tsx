@@ -8,11 +8,11 @@ interface IProps {
 }
 
 const BetField = ({ name, ratio }: IProps) => {
-	const [userRatio, setUserRatio] = useState(0)
+	const [userRatio, setUserRatio] = useState<number | null>(null);
 
 	const changeUserRatio = useCallback(
 		(e: ChangeEvent<HTMLInputElement>): void => {
-			if (+e.target.value <= 0) {
+			if (+e.target.value < 0 && e.target.value !== null) {
 				return
 			}
 			setUserRatio(+e.target.value)

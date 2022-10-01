@@ -1,20 +1,28 @@
-import React from 'react';
-import Box from "@mui/material/Box";
-import {Typography} from "@mui/material";
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Typography } from '@mui/material'
 
 interface IProps {
 	name: string
-	surname: string
 }
 
-const UserTile = ({name, surname}: IProps) => {
+const UserTile = ({ name }: IProps) => {
 	return (
-		<Box sx={{padding: '5px 20px', border: '1px solid', borderColor: 'secondary.contrastText', width: '100%'}}>
-			<Typography>
-				{name}&nbsp;{surname}
+		<Box sx={{
+			padding: '15px 20px',
+			width: '205px',
+			minHeight: '54px',
+			textAlign: 'center',
+			backgroundColor: 'success.main',
+			border: '1px solid',
+			borderColor: 'primary.main'
+		}}
+		>
+			<Typography color='primary' >
+				{name ? name : 'Player ?'}
 			</Typography>
 		</Box>
-	);
-};
+	)
+}
 
-export default UserTile;
+export default UserTile
