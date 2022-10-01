@@ -6,8 +6,6 @@ const { check, validationResult } = require('express-validator')
 
 const router = Router()
 
-const dictionaryValidation = [auth]
-
 // получить список групп
 router.get('/', auth, async (req: any, res: any) => {
 	try {
