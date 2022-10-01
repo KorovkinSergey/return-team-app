@@ -3,7 +3,7 @@ import auth from '../middleware/auth.middleware'
 import Bet from '../models/Bet'
 import User from '../models/User'
 
-const { check, validationResult } = require('express-validator')
+const { check } = require('express-validator')
 
 const router = Router()
 
@@ -11,8 +11,6 @@ const router = Router()
 router.get('/', auth, async (req: any, res: any) => {
 	try {
 		const bet = await Bet.findOne({ isOpen: true })
-
-		if (!bet) return res.status(404).json({ message: 'Ставка не найдена' })
 
 		return res.status(200).json(bet)
 	} catch (e) {
@@ -46,49 +44,60 @@ router.post('/add', auth, async (req: any, res: any) => {
 })
 
 // добавить ставку пользователя
-router.post('/', auth, async (req: any, res: any) => {
-	try {
-		const bet = await Bet.findOne({ isOpen: true })
-		const user = await User.findOne({ _id: req.body.bet.userId })
+router.post(
+	'/',
+	[
+		auth,
+		check('bet.userId', 'Нет поля').exists(),
+		check('bet.coins', 'Нет поля').exists(),
+		check('bet.team', 'Нет поля').exists(),
+	],
+	async (req: any, res: any) => {
+		try {
+			const bet = await Bet.findOne({ isOpen: true })
+			const user = await User.findOne({ _id: req.body.bet.userId })
 
-		if (!user) return res.status(404).json({ message: 'Пользователь не найден' })
+			if (!user) return res.status(404).json({ message: 'Пользователь не найден' })
 
-		if (!bet) return res.status(404).json({ message: 'Ставка не найдена' })
+			if (!bet) return res.status(404).json({ message: 'Ставка не найдена' })
 
-		if (user.coins < req.body.bet.coins) {
-			return res.status(404).json({ message: 'Не хватает поинтов' })
+			if (user.coins < req.body.bet.coins) {
+				return res.status(404).json({ message: 'Не хватает поинтов' })
+			}
+			user.coins -= req.body.bet.coins
+
+			await user.save()
+
+			bet.bets.push(req.body.bet)
+
+			let firstTeamCoins = 0
+			let secondTeamCoins = 0
+
+			bet.bets.map((item) => {
+				if (item.team === bet.firstTeam) {
+					firstTeamCoins += item.coins
+				}
+				if (item.team === bet.secondTeam) {
+					secondTeamCoins += item.coins
+				}
+			})
+
+			let firstTeamRatio = secondTeamCoins / firstTeamCoins !== Infinity ? secondTeamCoins / firstTeamCoins : 0
+			let secondTeamRatio = firstTeamCoins / secondTeamCoins !== Infinity ? firstTeamCoins / secondTeamCoins : 0
+
+			bet.firstTeamRatio = Math.floor((1 + firstTeamRatio) * 100) / 100
+			bet.secondTeamRatio = Math.floor((1 + secondTeamRatio) * 100) / 100
+
+			await bet.save()
+
+			return res.status(201).json({
+				coins: user.coins,
+			})
+		} catch (e) {
+			res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
 		}
-		user.coins -= req.body.bet.coins
-
-		await user.save()
-
-		bet.bets.push(req.body.bet)
-
-		let firstTeamCoins = 0
-		let secondTeamCoins = 0
-
-		bet.bets.map((item) => {
-			if (item.team === bet.firstTeam) {
-				firstTeamCoins += item.coins
-			}
-			if (item.team === bet.secondTeam) {
-				secondTeamCoins += item.coins
-			}
-		})
-
-		let firstTeamRatio = secondTeamCoins / firstTeamCoins !== Infinity ? secondTeamCoins / firstTeamCoins : 0
-		let secondTeamRatio = firstTeamCoins / secondTeamCoins !== Infinity ? firstTeamCoins / secondTeamCoins : 0
-
-		bet.firstTeamRatio = Math.floor((1 + firstTeamRatio) * 100) / 100
-		bet.secondTeamRatio = Math.floor((1 + secondTeamRatio) * 100) / 100
-
-		await bet.save()
-
-		return res.status(201).json({ bet })
-	} catch (e) {
-		res.status(500).json({ message: 'Что-то пошло не так, попробуй снова' })
 	}
-})
+)
 
 // изменить ставку
 router.post('/:id', async (req: any, res: any) => {
@@ -136,10 +145,12 @@ router.post('/:id', async (req: any, res: any) => {
 
 		const users = await User.find({ _id: ids })
 
-		await users.map(async (user) => {
-			user.coins += userBets.find((userBet: any) => userBet._id === user._id.toString()).coins
-			await user.save()
-		})
+		await Promise.all(
+			users.map(async (user) => {
+				user.coins += userBets.find((userBet: any) => userBet._id === user._id.toString()).coins
+				await user.save()
+			})
+		)
 
 		res.status(201).json(users)
 	} catch (e) {

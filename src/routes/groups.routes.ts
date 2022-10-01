@@ -6,8 +6,6 @@ const { check, validationResult } = require('express-validator')
 
 const router = Router()
 
-const dictionaryValidation = [auth]
-
 // получить список групп
 router.get('/', auth, async (req: any, res: any) => {
 	try {
@@ -67,8 +65,8 @@ router.post(
 			const group = new Group({
 				group: groups.length + 1,
 				members,
-				semiFinal: emptyArray(4),
 				quarterfinal: emptyArray(2),
+				semiFinal: emptyArray(1),
 			})
 
 			await group.save()
