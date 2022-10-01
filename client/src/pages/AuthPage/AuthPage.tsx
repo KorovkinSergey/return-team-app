@@ -9,12 +9,23 @@ const AuthPage = () => {
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => setTab(newValue)
 
 	return (
-		<Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-			<Box sx={{ bgcolor: 'background.paper', display: 'flex', flex: '1 1 auto' }}>
+		<Box sx={{
+			width: '100%',
+			display: 'flex',
+			alignItems:'center',
+			justifyContent: 'center',
+			flexDirection: 'column'
+		}}>
+			<Box sx={{
+				bgcolor: 'background.paper',
+				width: '600px',
+				display: 'flex',
+				flex: '1 1 auto'
+			}}>
 				{tab === 0 && <LoginForm />}
 				{tab === 1 && <RegisterForm setTab={setTab} />}
 			</Box>
-			<AppBar position='static'>
+			<AppBar position='static' sx={{width: '600px'}}>
 				<Tabs
 					value={tab}
 					onChange={handleChange}

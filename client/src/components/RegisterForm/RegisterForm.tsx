@@ -12,6 +12,7 @@ interface IProps {
 
 const RegisterSchema = yup.object({
 	name: yup.string().min(3).required(),
+	surname: yup.string().min(3).required(),
 	email: yup.string().email().required(),
 	password: yup.string().min(6).required(),
 	repeatPassword: yup.string().min(6).required(),
@@ -25,12 +26,12 @@ const RegisterForm = ({ setTab }: IProps) => {
 	const { registerHandler, loading } = useRegister()
 
 	const onSubmit = async (data: any) => {
-		const { email, name, password, repeatPassword } = data
+		const { email, name, password, repeatPassword, surname } = data
 		if (password !== repeatPassword) {
 			return setError('repeatPassword', { type: 'custom', message: 'Passwords do not match' })
 		}
 		try {
-			await registerHandler({ email, password, name })
+			await registerHandler({ email, password, name, surname })
 			setTab(0)
 		} catch (e: any) {
 			setError('userExists', { type: 'custom', message: e.message || 'user exists' })
@@ -59,6 +60,15 @@ const RegisterForm = ({ setTab }: IProps) => {
 					helperText={errors.name ? errors.name.message as React.ReactNode : ''}
 					type='text'
 					label='Имя'
+				/>
+				<TextField
+					{...register('surname')}
+					sx={{ mt: 2 }}
+					fullWidth
+					error={!!errors.surname}
+					helperText={errors.surname ? errors.surname.message as React.ReactNode : ''}
+					type='text'
+					label='Фамилия'
 				/>
 				<TextField
 					{...register('email')}

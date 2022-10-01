@@ -4,9 +4,6 @@ import App from './App'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { WindowSizeContextProvider } from './context/WindowSizeContext'
 import { AuthContextProvider } from './context/AuthContext'
-import { SettingsSortNewWordsContextProvider } from './context/SettingsSortNewWordsContext'
-import { SettingsLearnWordsContextProvider } from './context/SettingsLearnWordsContext'
-import { SettingsWordsContextProvider } from './context/SettingsWordsContext'
 import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -42,13 +39,7 @@ root.render(
 	<ThemeProvider theme={theme}>
 		<AuthContextProvider>
 			<WindowSizeContextProvider>
-				<SettingsLearnWordsContextProvider>
-					<SettingsSortNewWordsContextProvider>
-						<SettingsWordsContextProvider>
 							<App />
-						</SettingsWordsContextProvider>
-					</SettingsSortNewWordsContextProvider>
-				</SettingsLearnWordsContextProvider>
 			</WindowSizeContextProvider>
 		</AuthContextProvider>
 	</ThemeProvider>,

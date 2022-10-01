@@ -3,7 +3,6 @@ import config from 'config'
 
 import auth from './src/routes/auth.routes'
 import path from 'path'
-import dictionary from './src/routes/dictionary.routes'
 
 const mongoose = require('mongoose')
 
@@ -11,7 +10,7 @@ const app = express()
 
 app.use(express.json({}))
 
-app.use('/api/dictionary', dictionary)
+// app.use('/api/dictionary', dictionary)
 app.use('/api/auth', auth)
 
 if (process.env.NODE_ENV === 'production') {

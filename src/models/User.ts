@@ -4,21 +4,16 @@ const schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   name: { type: String, required: true },
+  surname: { type: String, required: true },
+  role: { type: String, required: true },
   avatar: { type: String },
-  achievements: {
-    wordsLearned: { type: Number, default: 0 },
-    wordsOnRepeat: { type: Number, default: 0 },
-  },
-  dictionary: [
+	coins: {type: Number, required: true},
+  bets: [
     {
-      title: { type: String, required: true },
-      basic: { type: Boolean },
-      countRepeat: { type: Number, default: 0 },
-      words: [{
-        russian: { type: String, required: true },
-        english: { type: String, required: true },
-        transcript: { type: String, required: true },
-      }]
+      id: { type: String, required: true },
+      win: { type: String, required: true },
+      bet: { type: Number, default: 0 },
+      result: { type: String, default: '' },
     }
   ]
 })
