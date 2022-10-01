@@ -11,22 +11,22 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const theme = createTheme({
 	palette: {
 		primary: {
-			light: '#aa0505',
-			main: '#6a0c0b',
-			dark: '#4b0908',
+			light: '#7D2D2C',
+			main: '#EBF2FA',
+			dark: '#7068D4',
+			contrastText: '#231C00',
+		},
+		secondary: {
+			light: '#BF3535',
+			main: '#aa0505',
+			dark: '#A80404',
 			contrastText: '#fbca03',
 		},
 		success: {
-			light: '#aa0505',
-			main: '#6a0c0b',
+			light: '#FCD742',
+			main: '#fbca03',
 			dark: '#b97d10',
-			contrastText: '#fbca03',
-		},
-		secondary: {
-			light: '#fbca03',
-			main: '#e39a1a',
-			dark: '#b97d10',
-			contrastText: '#aa0505',
+			contrastText: '#231C00',
 		},
 		common: {
 			black: '#fbca03',
@@ -39,8 +39,8 @@ root.render(
 	<ThemeProvider theme={theme}>
 		<AuthContextProvider>
 			<WindowSizeContextProvider>
-							<App />
+				<App />
 			</WindowSizeContextProvider>
 		</AuthContextProvider>
-	</ThemeProvider>,
+	</ThemeProvider>
 )
