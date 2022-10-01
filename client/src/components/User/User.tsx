@@ -14,7 +14,7 @@ const User = () => {
 	return (
 		<Box
 			sx={{
-				maxWidth: '25%',
+				maxWidth: '400px',
 				height: '100%',
 				backgroundColor: 'success.main',
 			}}
@@ -27,7 +27,7 @@ const User = () => {
 						marginRight: 'auto',
 						backgroundColor: 'primary.light',
 						maxWidth: '100%',
-						width: 'auto',
+						width: '100%',
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
@@ -47,9 +47,8 @@ const User = () => {
 						}}
 					/>
 					<Typography sx={{ fontSize: 18, marginTop: 2 }} color='primary.contrastText'>
-						Девиз:
-						<br />― Вас называют &quot;Да Винчи нашего времени&quot;. Что скажите на это?
-						<br />― Это бред - я рисовать не умею.
+						<br/>— Да. Парень в бронированном костюме. А снять — кто ты без него?
+						<br/>— Гений, миллиардер, плэйбой, филантроп.
 					</Typography>
 				</Box>
 

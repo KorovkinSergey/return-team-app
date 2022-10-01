@@ -1,1 +1,1 @@
-export { default as SliderInput } from './Header'
+export {default as Header} from './Header'
