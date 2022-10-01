@@ -10,7 +10,7 @@ const Wrapper: FC<IProps> = ({ children, top }) => {
 
 	const stylesDefault = {
 		display: 'flex',
-		width: 'auto',
+		width: '100%',
 		position: 'relative',
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -21,7 +21,6 @@ const Wrapper: FC<IProps> = ({ children, top }) => {
 	if (top) {
 		stylesDefault.justifyContent = 'flex-start'
 	}
-
 
 	return (
 		<Box sx={stylesDefault}>
