@@ -4,6 +4,7 @@ import { QuarterFinal } from '../QuarterFinal'
 import { SemiFinal } from '../SemiFinal'
 import { Final } from '../Final'
 import { IGroup } from '../../hooks/api/useGroupList'
+import styles from './UsersGroup.module.css'
 
 interface IProps {
 	customClassName?: string
@@ -17,8 +18,9 @@ const UsersGroup = ({ group, customClassName }: IProps) => {
 		<Box sx={{
 			display: 'flex',
 			width: '100%',
+			padding: '10px'
 		}}
-				 className={customClassName ? customClassName : ''}>
+				 className={`${styles.wrapper} ${customClassName ? customClassName : ''}`}>
 			<QuarterFinal quarterfinal={quarterfinal} />
 			<SemiFinal semiFinal={semiFinal} />
 			<Final players={[...new Array(1)]} />
@@ -26,4 +28,4 @@ const UsersGroup = ({ group, customClassName }: IProps) => {
 	)
 }
 
-export default UsersGroup
+export default React.memo(UsersGroup)

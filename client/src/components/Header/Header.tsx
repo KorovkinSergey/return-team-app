@@ -9,12 +9,6 @@ import { Loading } from '../Loading'
 const Header = () => {
 	const { logout } = useAuthContext()
 	const { getBet, loading } = useBet()
-	const { data } = useAuthContext()
-
-	const { user } = data || {}
-	const { id } = user || {}
-
-	console.log('data', id)
 
 	const [bet, setBet] = useState<Bet | null>(null)
 
@@ -59,7 +53,13 @@ const Header = () => {
 						Победа в серии BO3
 					</Typography>
 
-					<Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: '20px', marginTop: '20px' }}>
+					<Box sx={{
+						display: 'flex',
+						justifyContent: 'space-evenly',
+						flexWrap: 'wrap',
+						gap: '20px',
+						marginTop: '20px',
+					}}>
 						<BetField ratio={bet.firstTeamRatio} name={bet.firstTeam} />
 						<BetField ratio={bet.secondTeamRatio} name={bet.secondTeam} />
 					</Box>
@@ -69,4 +69,4 @@ const Header = () => {
 	)
 }
 
-export default Header
+export default React.memo(Header)

@@ -1,6 +1,10 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import Box from '@mui/material/Box'
 import { Button, TextField, Typography } from '@mui/material'
+import { useAuthContext } from '../../context/AuthContext'
+import { useAddBet } from '../../hooks/api/useAddBet'
+import { Loading } from '../Loading'
+import styles from './BetField.module.css'
 
 interface IProps {
 	name: string
@@ -8,25 +12,44 @@ interface IProps {
 }
 
 const BetField = ({ name, ratio }: IProps) => {
-	const [userRatio, setUserRatio] = useState<number | null>(null);
+	const [userBet, setUserBet] = useState<number | ''>('');
+	const [isDisabled, setIsDisabled] = useState<boolean>(false);
+	const { data } = useAuthContext()
+	const { addBet, loading, error } = useAddBet()
 
-	const changeUserRatio = useCallback(
+	const { user } = data || {}
+	const { id, coins = 0 } = user || {}
+
+	const changeUserBet = useCallback(
 		(e: ChangeEvent<HTMLInputElement>): void => {
-			if (+e.target.value < 0 && e.target.value !== null) {
+			setIsDisabled(false)
+
+			if (+e.target.value < 0 && e.target.value !== null || e.target.value === '') {
+				setUserBet('')
 				return
 			}
-			setUserRatio(+e.target.value)
+			if (+e.target.value > coins) setIsDisabled(true)
+			setUserBet(+e.target.value)
 		},
-		[setUserRatio]
+		[setUserBet, setIsDisabled, coins]
 	)
 
 	const onClick = useCallback((): void => {
-		console.log(`send userRatio ${userRatio}`)
-		setUserRatio(0)
-	}, [userRatio, setUserRatio])
+		const bet = {
+			userId: id || '',
+			team: name,
+			coins: userBet.toString()
+		}
+		addBet(bet)
+		setUserBet(0)
+	}, [userBet, setUserBet, addBet, name, id])
+
+	if (loading) return <Loading />
+
+	if (error) console.error(error)
 
 	return (
-		<Box sx={{ position: 'relative', flexBasis: '45%', display: 'flex', alignItems: 'center' }}>
+		<Box className={styles.wrapper}>
 			<Box
 				sx={{
 					border: '1px solid',
@@ -46,10 +69,12 @@ const BetField = ({ name, ratio }: IProps) => {
 					<TextField
 						required
 						type='number'
-						label='Размер ставки'
+						label={isDisabled ? 'Недостаточно поинтов' : 'Размер ставки'}
 						variant='outlined'
-						value={userRatio}
-						onChange={changeUserRatio}
+						value={userBet}
+						onChange={changeUserBet}
+						className={styles.input}
+						error={isDisabled}
 					/>
 					<Button
 						onClick={onClick}
@@ -57,6 +82,7 @@ const BetField = ({ name, ratio }: IProps) => {
 						size='large'
 						color='secondary'
 						sx={{ backgroundColor: 'primary.dark', marginLeft: '15px' }}
+						disabled={isDisabled}
 					>
 						Поставить
 					</Button>
@@ -69,4 +95,4 @@ const BetField = ({ name, ratio }: IProps) => {
 	)
 }
 
-export default BetField
+export default React.memo(BetField)
