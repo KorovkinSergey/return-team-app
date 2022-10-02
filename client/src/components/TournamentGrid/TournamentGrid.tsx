@@ -12,7 +12,7 @@ const TournamentGrid = () => {
 
 	useEffect(() => {
 		getGroupList().then(setGroupList)
-	}, [])
+	}, [getGroupList])
 
 	if (loading) return <Loading />
 

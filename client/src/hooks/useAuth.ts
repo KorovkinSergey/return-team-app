@@ -7,22 +7,28 @@ export interface IUseAuth {
 	logout: () => void
 	token: string
 	user: any
-	updateUser: (userData: any) => void
+	updateUser: (userData: UserData) => void
 	data: IData | null
 	isAuthenticated: boolean
 }
 
+type UserData = {
+	[key: string]: string | number
+}
+
 interface IData {
 	token: string
-	user: {
-		avatar: string
-		id: string
-		name: string
-		surname: string
-		coins: number
-		bets: []
-		role: 'USER' | 'ADMIN'
-	}
+	user: IUser
+}
+
+interface IUser {
+	avatar: string
+	id: string
+	name: string
+	surname: string
+	coins: number
+	bets: []
+	role: 'USER' | 'ADMIN'
 }
 
 export const useAuth = (): IUseAuth => {
@@ -50,8 +56,8 @@ export const useAuth = (): IUseAuth => {
 		}
 	}, [login])
 
-	const updateUser = useCallback((updateData: any) => {
-		setUser({ ...user, ...updateData })
+	const updateUser = useCallback((updateData: UserData) => {
+		setUser((prevState: IUser) => ({ ...prevState, ...updateData }))
 	}, [])
 
 	const logout = useCallback(() => {

@@ -1,0 +1,30 @@
+.wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+@media (max-width: 1199px) {
+	.wrapper {
+		flex-basis: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.wrapper {
+		flex-basis: 45%;
+	}
+}
+
+.input input::-webkit-outer-spin-button,
+.input input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+.input input[type=number] {
+	-moz-appearance: textfield;
+}

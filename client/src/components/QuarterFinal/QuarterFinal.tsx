@@ -2,8 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import PlayersCouple from '../PlayersCouple/PlayersCouple'
 import { IQuarter } from '../../hooks/api/useGroupList'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import styles from '../QuarterFinal/QuarterFinal.module.css'
 
 interface IProps {

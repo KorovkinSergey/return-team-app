@@ -3,10 +3,15 @@ import { Box } from '@mui/material'
 
 interface IProps {
 	children: ReactNode,
+	customStyles?: CustomStyles
 	top?: boolean
 }
 
-const Wrapper: FC<IProps> = ({ children, top }) => {
+interface CustomStyles {
+	[key: string]: string | number
+}
+
+const Wrapper: FC<IProps> = ({ children, customStyles, top }) => {
 
 	const stylesDefault = {
 		display: 'flex',
@@ -23,10 +28,10 @@ const Wrapper: FC<IProps> = ({ children, top }) => {
 	}
 
 	return (
-		<Box sx={stylesDefault}>
+		<Box sx={{ ...stylesDefault, ...customStyles }}>
 			{children}
 		</Box>
 	)
 }
 
-export default Wrapper
+export default React.memo(Wrapper)

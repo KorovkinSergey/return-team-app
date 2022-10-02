@@ -4,27 +4,6 @@
 	padding-right: 2%;
 }
 
-.content::-webkit-scrollbar {
-	width: 4px;
-	transition: all .3s;
-}
-
-.content::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.content::-webkit-scrollbar-thumb {
-	background: rgba(35, 28, 0, 0.5);
-}
-
-.content::-webkit-scrollbar:hover {
-	width: 8px;
-}
-
-.content::-webkit-scrollbar-thumb:hover {
-	background: #b97d10;
-}
-
 .group + .group {
 	margin-top: 50px;
 }
