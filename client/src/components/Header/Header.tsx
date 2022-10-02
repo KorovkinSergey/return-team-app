@@ -9,6 +9,12 @@ import { Loading } from '../Loading'
 const Header = () => {
 	const { logout } = useAuthContext()
 	const { getBet, loading } = useBet()
+	const { data } = useAuthContext()
+
+	const { user } = data || {}
+	const { id } = user || {}
+
+	console.log('data', id)
 
 	const [bet, setBet] = useState<Bet | null>(null)
 
@@ -27,7 +33,7 @@ const Header = () => {
 			color='secondary'
 		>
 			<Button
-				onClick={ logout }
+				onClick={logout}
 				variant='contained'
 				color='primary'
 				sx={{
