@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import { UsersGroup } from '../UsersGroup'
 import { Header } from '../Header'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import styles from './TournamentGrid.module.css'
 import { useGroupList } from '../../hooks/api/useGroupList'
 import { Loading } from '../Loading'
+import styles from './TournamentGrid.module.css'
 
 const TournamentGrid = () => {
 	const { getGroupList, loading } = useGroupList()
@@ -16,7 +14,7 @@ const TournamentGrid = () => {
 		getGroupList().then(setGroupList)
 	}, [])
 
-	if(loading) return <Loading/>
+	if (loading) return <Loading />
 
 	return (
 		<Box
