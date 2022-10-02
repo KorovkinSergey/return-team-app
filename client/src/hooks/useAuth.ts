@@ -56,6 +56,20 @@ export const useAuth = (): IUseAuth => {
 		}
 	}, [login])
 
+	useEffect(() => {
+		const localData = localStorage.getItem(storageName)
+		const data = localData ? JSON.parse(localData) : null
+		if (data) {
+			data.user = user
+			localStorage.setItem(
+				storageName,
+				JSON.stringify({
+					...data,
+				})
+			)
+		}
+	}, [user])
+
 	const updateUser = useCallback((updateData: UserData) => {
 		setUser((prevState: IUser) => ({ ...prevState, ...updateData }))
 	}, [])
