@@ -53,13 +53,15 @@ const Header = () => {
 						Победа в серии BO3
 					</Typography>
 
-					<Box sx={{
-						display: 'flex',
-						justifyContent: 'space-evenly',
-						flexWrap: 'wrap',
-						gap: '20px',
-						marginTop: '20px',
-					}}>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'space-evenly',
+							flexWrap: 'wrap',
+							gap: '20px',
+							marginTop: '20px',
+						}}
+					>
 						<BetField ratio={bet.firstTeamRatio} name={bet.firstTeam} />
 						<BetField ratio={bet.secondTeamRatio} name={bet.secondTeam} />
 					</Box>
