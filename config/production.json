@@ -2,5 +2,5 @@
 	"port": 80,
 	"jwtSecret": "learn-words",
 	"mongoURL": "mongodb+srv://sergey:kaYKn3vrJlvHfnEE@cluster0.j3kxjns.mongodb.net/?retryWrites=true&w=majority",
-	"baseUrl": "http://localhost:80"
+	"baseUrl": "http://lmru-returns.ru"
 }
