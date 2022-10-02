@@ -11,15 +11,16 @@ const User = () => {
 	const { name = '', surname = '', coins } = user || {}
 
 	return (
-		<Box className={styles.mainWrap}
+		<Box
+			className={styles.mainWrap}
 			sx={{
 				height: '100%',
 				backgroundColor: 'success.main',
 				overflowY: 'scroll',
-				flexShrink: 0
+				flexShrink: 0,
 			}}
 		>
-			<Wrapper top customStyles={{p: 0, pt: 4}}>
+			<Wrapper top customStyles={{ p: 0, pt: 4 }}>
 				<Box
 					sx={{
 						marginTop: 0,
@@ -32,7 +33,7 @@ const User = () => {
 						alignItems: 'center',
 						padding: '20px',
 						borderRadius: '24px',
-						width: '90%'
+						width: '90%',
 					}}
 				>
 					<Chip
@@ -65,43 +66,62 @@ const User = () => {
 				</Box>*/}
 
 				<Box sx={{ position: 'relative', marginTop: 5, width: '100%', paddingBottom: '100%' }}>
-					<img src='/assets/User-iron-man.png' alt='ironman' style={{
-						position: 'absolute', top: 0, right: 0, left: 0, bottom: 0,
-						objectFit: 'contain', objectPosition: 'center',
-						maxWidth: '100%'
-					}} />
-					<Typography className={styles.text} sx={{
-						fontSize: 25,
-						position: 'absolute',
-						top: '28%', left: '23%',
-						fontWeight: 800,
-						zIndex: 2,
-						textShadow: `1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000`
-					}} color='primary.contrastText'>
+					<img
+						src='/assets/User-iron-man.png'
+						alt='ironman'
+						style={{
+							position: 'absolute',
+							top: 0,
+							right: 0,
+							left: 0,
+							bottom: 0,
+							objectFit: 'contain',
+							objectPosition: 'center',
+							maxWidth: '100%',
+						}}
+					/>
+					<Typography
+						className={styles.text}
+						sx={{
+							fontSize: 25,
+							position: 'absolute',
+							top: '28%',
+							left: '23%',
+							fontWeight: 800,
+							zIndex: 2,
+							textShadow: `1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000`,
+						}}
+						color='primary.contrastText'
+					>
 						Баланс:
 					</Typography>
 
-					<Typography className={styles.text} sx={{
-						fontSize: 25,
-						position: 'absolute',
-						top: '40%', left: '27%',
-						width: '5vw',
-						height: '5vw',
-						maxWidth: '60px',
-						maxHeight: '60px',
-						borderRadius: '50%',
-						bgcolor: '#ffff',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						boxShadow: `#FFF 0 -1px 4px,
+					<Typography
+						className={styles.text}
+						sx={{
+							fontSize: 25,
+							position: 'absolute',
+							top: '40%',
+							left: '27%',
+							width: '5vw',
+							height: '5vw',
+							maxWidth: '60px',
+							maxHeight: '60px',
+							borderRadius: '50%',
+							bgcolor: '#ffff',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							boxShadow: `#FFF 0 -1px 4px,
 						#ff0 0 -2px 10px,
 						#ff8000 10px -10px 20px,
 						red 0 -18px 40px,
 						5px 5px 15px 5px
 						rgba(255,255,255,0);`,
-						cursor: 'default',
-					}} color='secondary.contrastText'>
+							cursor: 'default',
+						}}
+						color='secondary.contrastText'
+					>
 						{coins}
 					</Typography>
 				</Box>
@@ -110,4 +130,4 @@ const User = () => {
 	)
 }
 
-export default React.memo(User)
+export default User

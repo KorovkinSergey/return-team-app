@@ -12,8 +12,8 @@ interface IProps {
 }
 
 const BetField = ({ name, ratio }: IProps) => {
-	const [userBet, setUserBet] = useState<number | ''>('');
-	const [isDisabled, setIsDisabled] = useState<boolean>(false);
+	const [userBet, setUserBet] = useState<number | ''>('')
+	const [isDisabled, setIsDisabled] = useState<boolean>(false)
 	const { data } = useAuthContext()
 	const { addBet, loading, error } = useAddBet()
 
@@ -24,7 +24,7 @@ const BetField = ({ name, ratio }: IProps) => {
 		(e: ChangeEvent<HTMLInputElement>): void => {
 			setIsDisabled(false)
 
-			if (+e.target.value < 0 && e.target.value !== null || e.target.value === '') {
+			if ((+e.target.value < 0 && e.target.value !== null) || e.target.value === '') {
 				setUserBet('')
 				return
 			}
@@ -38,7 +38,7 @@ const BetField = ({ name, ratio }: IProps) => {
 		const bet = {
 			userId: id || '',
 			team: name,
-			coins: userBet.toString()
+			coins: userBet.toString(),
 		}
 		addBet(bet)
 		setUserBet(0)
