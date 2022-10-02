@@ -44,8 +44,6 @@ const BetField = ({ name, ratio }: IProps) => {
 		setUserBet(0)
 	}, [userBet, setUserBet, addBet, name, id])
 
-	if (loading) return <Loading />
-
 	if (error) console.error(error)
 
 	return (
@@ -65,7 +63,7 @@ const BetField = ({ name, ratio }: IProps) => {
 				<Typography variant='h6' sx={{ display: 'inline-block' }}>
 					{name}
 				</Typography>
-				<Box sx={{ display: 'flex', alignItems: 'center' }}>
+				{ loading ? <Loading/> : <Box sx={{ display: 'flex', alignItems: 'center' }}>
 					<TextField
 						required
 						type='number'
@@ -86,7 +84,7 @@ const BetField = ({ name, ratio }: IProps) => {
 					>
 						Поставить
 					</Button>
-				</Box>
+				</Box>}
 			</Box>
 			<Typography variant='h5' sx={{ marginLeft: '10px' }}>
 				x{ratio}

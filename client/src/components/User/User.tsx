@@ -10,8 +10,6 @@ const User = () => {
 	const { user } = useAuthContext()
 	const { name = '', surname = '', coins } = user || {}
 
-	console.log(user)
-
 	return (
 		<Box className={styles.mainWrap}
 			sx={{
