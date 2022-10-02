@@ -21,7 +21,6 @@ interface AuthContextProviderProps {
 
 export const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
 	const contextValue = useAuth()
-	console.log('contextValue', contextValue)
 
 	return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }

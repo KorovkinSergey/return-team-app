@@ -3,4 +3,5 @@ export const endpoints = {
 	login: '/api/auth/login',
 	groups: '/api/groups',
 	bet: '/api/bet',
+	user: '/api/user/:id',
 }

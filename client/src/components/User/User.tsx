@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import { Wrapper } from '../Wrapper'
 import { Chip, Typography } from '@mui/material'
 import UserAvatar from '../UserAvatar/UserAvatar'
-import { useAuthContext } from '../../context/AuthContext'
 import styles from './User.module.css'
+import { useUser } from '../../hooks/useUser'
+
+interface IUser {
+	avatar: string
+	id: string
+	name: string
+	surname: string
+	coins: number
+	bets: []
+	role: 'USER' | 'ADMIN'
+}
 
 const User = () => {
-	const { user } = useAuthContext()
+	const { getUser } = useUser()
+	const [user, setUser] = useState<IUser | null>(null)
 	const { name = '', surname = '', coins } = user || {}
 
-	console.log(user)
+	useEffect(() => {
+		getUser().then((res: IUser) => {
+			setUser(res)
+		})
+	}, [getUser, setUser])
 
 	return (
 		<Box
@@ -124,7 +139,7 @@ const User = () => {
 						}}
 						color='secondary.contrastText'
 					>
-						{coins}
+						{coins?.toFixed(0)}
 					</Typography>
 				</Box>
 			</Wrapper>
