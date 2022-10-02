@@ -122,7 +122,7 @@ const User = () => {
 						}}
 						color='secondary.contrastText'
 					>
-						{coins}
+						{coins.toFixed(0)}
 					</Typography>
 				</Box>
 			</Wrapper>

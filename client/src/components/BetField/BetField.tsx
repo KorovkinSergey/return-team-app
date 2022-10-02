@@ -7,13 +7,15 @@ import { Loading } from '../Loading'
 import styles from './BetField.module.css'
 
 interface IProps {
+	onAdd: () => void
 	name: string
 	ratio: number
 }
 
-const BetField = ({ name, ratio }: IProps) => {
+const BetField = ({ onAdd, name, ratio }: IProps) => {
 	const [userBet, setUserBet] = useState<number | ''>('')
-	const [isDisabled, setIsDisabled] = useState<boolean>(false)
+	const [isNotEnough, setIsNotEnough] = useState<boolean>(false)
+	const [isInvalidData, setIsInvalidData] = useState<boolean>(false)
 	const { data } = useAuthContext()
 	const { addBet, loading, error } = useAddBet()
 
@@ -22,27 +24,33 @@ const BetField = ({ name, ratio }: IProps) => {
 
 	const changeUserBet = useCallback(
 		(e: ChangeEvent<HTMLInputElement>): void => {
-			setIsDisabled(false)
+			setIsInvalidData(false)
+			setIsNotEnough(false)
 
 			if ((+e.target.value < 0 && e.target.value !== null) || e.target.value === '') {
+				setIsInvalidData(true)
 				setUserBet('')
 				return
 			}
-			if (+e.target.value > coins) setIsDisabled(true)
+
+			if (+e.target.value === 0  ) setIsInvalidData(true)
+
+			if (+e.target.value > coins) setIsNotEnough(true)
 			setUserBet(+e.target.value)
 		},
-		[setUserBet, setIsDisabled, coins]
+		[setUserBet, setIsInvalidData, setIsNotEnough, coins]
 	)
 
 	const onClick = useCallback((): void => {
+		if (!userBet) return
 		const bet = {
 			userId: id || '',
 			team: name,
 			coins: userBet.toString(),
 		}
-		addBet(bet)
+		addBet(bet).then(() => onAdd())
 		setUserBet(0)
-	}, [userBet, setUserBet, addBet, name, id])
+	}, [userBet, setUserBet, addBet, name, id, onAdd])
 
 	if (error) console.error(error)
 
@@ -67,12 +75,16 @@ const BetField = ({ name, ratio }: IProps) => {
 					<TextField
 						required
 						type='number'
-						label={isDisabled ? 'Недостаточно поинтов' : 'Размер ставки'}
+						label={
+						isNotEnough && 'Недостаточно поинтов'
+							|| isInvalidData && 'Недопустимое значение'
+							|| 'Размер ставки'
+					}
 						variant='outlined'
 						value={userBet}
 						onChange={changeUserBet}
 						className={styles.input}
-						error={isDisabled}
+						error={isInvalidData}
 					/>
 					<Button
 						onClick={onClick}
@@ -80,7 +92,7 @@ const BetField = ({ name, ratio }: IProps) => {
 						size='large'
 						color='secondary'
 						sx={{ backgroundColor: 'primary.dark', marginLeft: '15px' }}
-						disabled={isDisabled}
+						disabled={isInvalidData || isNotEnough}
 					>
 						Поставить
 					</Button>
@@ -93,4 +105,4 @@ const BetField = ({ name, ratio }: IProps) => {
 	)
 }
 
-export default React.memo(BetField)
+export default BetField

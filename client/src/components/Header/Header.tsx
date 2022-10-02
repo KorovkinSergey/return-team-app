@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { AppBar, Button, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import { useAuthContext } from '../../context/AuthContext'
-import BetField from '../BetField/BetField'
 import { Bet, useBet } from '../../hooks/api/useBet'
+import { BetField } from '../BetField'
 import { Loading } from '../Loading'
 
 const Header = () => {
@@ -12,10 +12,11 @@ const Header = () => {
 
 	const [bet, setBet] = useState<Bet | null>(null)
 
+	const updateBet = () => getBet().then(setBet)
+
 	useEffect(() => {
 		getBet().then(setBet)
 	}, [getBet])
-	if (loading) return <Loading />
 
 	return (
 		<AppBar
@@ -23,6 +24,7 @@ const Header = () => {
 				padding: '15px 0 35px',
 				backgroundColor: 'success.main',
 				position: 'relative',
+				minHeight: '190px',
 			}}
 			color='secondary'
 		>
@@ -41,7 +43,7 @@ const Header = () => {
 			</Button>
 			{bet === null && (
 				<>
-					<Typography variant='h4' component='h2' align='center'>
+					<Typography variant='h4' component='h2' align='center' sx={{ margin: 'auto' }}>
 						Ставка закрыта
 					</Typography>
 				</>
@@ -60,8 +62,10 @@ const Header = () => {
 						gap: '20px',
 						marginTop: '20px',
 					}}>
-						<BetField ratio={bet.firstTeamRatio} name={bet.firstTeam} />
-						<BetField ratio={bet.secondTeamRatio} name={bet.secondTeam} />
+						{ loading ? <Loading /> : <>
+							<BetField onAdd={updateBet} ratio={bet.firstTeamRatio} name={bet.firstTeam} />
+							<BetField onAdd={updateBet} ratio={bet.secondTeamRatio} name={bet.secondTeam} />
+						</> }
 					</Box>
 				</>
 			)}

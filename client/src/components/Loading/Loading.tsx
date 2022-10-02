@@ -14,7 +14,7 @@ const Loading: FC<IProps> = ({ backgroundColor }) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor: backgroundColor,
+				backgroundColor: backgroundColor || 'transparent',
 			}}>
 				<CircularProgress disableShrink />
 			</Paper>
