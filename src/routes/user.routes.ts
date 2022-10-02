@@ -6,7 +6,7 @@ const router = Router()
 
 router.get('/:id', [auth], async (req: any, res: any) => {
 	try {
-		const user = await User.findOne({ id: req.params.id })
+		const user = await User.findOne({ _id: req.params.id })
 
 		if (!user) return res.status(404).json({ message: 'Пользователь не найден' })
 
