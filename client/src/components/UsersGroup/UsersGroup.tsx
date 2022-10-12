@@ -12,18 +12,20 @@ interface IProps {
 }
 
 const UsersGroup = ({ group, customClassName }: IProps) => {
-	const {quarterfinal, semiFinal} = group
+	const { quarterfinal, semiFinal } = group
 
 	return (
-		<Box sx={{
-			display: 'flex',
-			width: '100%',
-			padding: '10px'
-		}}
-				 className={`${styles.wrapper} ${customClassName ? customClassName : ''}`}>
+		<Box
+			sx={{
+				display: 'flex',
+				width: '100%',
+				padding: '10px',
+			}}
+			className={`${styles.wrapper} ${customClassName ? customClassName : ''}`}
+		>
 			<QuarterFinal quarterfinal={quarterfinal} />
 			<SemiFinal semiFinal={semiFinal} />
-			<Final players={[...new Array(1)]} />
+			<Final players={semiFinal} />
 		</Box>
 	)
 }

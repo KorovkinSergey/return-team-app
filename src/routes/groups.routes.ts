@@ -102,7 +102,7 @@ router.post('/:id', [auth], async (req: any, res: any) => {
 				group.quarterfinal = req.body.quarterfinal
 			}
 			if (req.body.semiFinal) {
-				group.quarterfinal = req.body.quarterfinal
+				group.semiFinal = req.body.semiFinal
 			}
 
 			group.save((error: any, result: any) => {
